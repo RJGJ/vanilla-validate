@@ -4,7 +4,7 @@ export interface ValidationRule {
   errorMessage: Function;
 }
 
-export function initialize(formSelectors: string) {
+export function initializeValidators(formSelectors: string) {
   document.querySelectorAll(formSelectors).forEach((form) => {
     initializeForm(form);
   });
@@ -34,12 +34,6 @@ function initializeForm(form: Element) {
 }
 
 function initializeProviders(provider: Element) {
-  const validatorAttribute = provider.getAttribute("data-v-rules");
-  if (!validatorAttribute) {
-    throw new Error("`data-v-rules` attribute required");
-    return;
-  }
-
   const rules = provider.getAttribute("data-v-rules")?.split("|");
   const input = provider.querySelector("[data-v-input]");
 
@@ -77,4 +71,11 @@ function validateInput(input: HTMLInputElement, rules: string[]) {
   });
 
   input.setAttribute("data-v-errors", JSON.stringify(errors));
+  input.dispatchEvent(
+    new CustomEvent("v-validate", {
+      detail: {
+        errors,
+      },
+    })
+  );
 }

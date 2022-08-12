@@ -1,4 +1,4 @@
-import './style.css'
+import "./style.css";
 // import javascriptLogo from './javascript.svg'
 // import { setupCounter } from './counter.js'
 
@@ -20,4 +20,4 @@ import './style.css'
 //   </div>
 // `
 
-setupCounter(document.querySelector('#counter'))
+// setupCounter(document.querySelector('#counter'))
